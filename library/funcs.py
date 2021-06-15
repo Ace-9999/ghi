@@ -13,9 +13,8 @@ def open_user(user):
 		users[str(user.id)] = {}
 		users[str(user.id)]["title"] = f"{user.name}'s TradeShop"
 		users[str(user.id)]["about"] = f"Contact {user.mention} to Trade"
-		users[str(user.id)]["selling"] = {"lines":["Nothing here yet."]}
-		users[str(user.id)]["buying"] = {"lines":["Nothing here yet."]}
-		users[str(user.id)]["pcool"] = 0
+		users[str(user.id)]["selling"] = {"lines":["Nothing here yet."], "cool":0,"pcool":0}
+		users[str(user.id)]["buying"] = {"lines":["Nothing here yet."], "cool":0,"pcool":0}
 
 	dump(users)
 
@@ -29,7 +28,7 @@ firebase_admin.initialize_app(cred, {
 'databaseURL': 'https://ghl-shop-storage-default-rtdb.firebaseio.com/'
 })
 
-def get_users_data():
+def get_users_data(): 
 	users = dbe.reference('/')
 
 	return users.get()
