@@ -1,6 +1,6 @@
 import discord, asyncio
 from discord.ext.commands import Cog, command
-from library import funcs
+from library import funcs, roles
 from discord.utils import get
 
 class Shopping(Cog):
@@ -66,9 +66,18 @@ class Shopping(Cog):
 				type = "buying"
 			else:
 				return await self.send_wait(ctx,'Please include `selling` or `buying` in your line, so i can detect which shop to add to.')
-			limit = self.rolescheck(ctx, user)
+			id1 = int(list(roles.perks.keys())[0])
+			id2 = int(list(roles.perks.keys())[1])
+			for role in roles.perks:
+				id1 = int(role)
+			if get(ctx.guild.roles, id=id1) in ctx.author.roles:
+				limit = roles.perks[str(id1)]
+			elif get(ctx.guild.roles, id=id2) in ctx.author.roles:
+				limit = roles.perks[str(id2)]
+			else:
+				limit = 5
 			if len(users[str(user.id)][type]["lines"]) >= limit:
-				return await self.send_wait(ctx,f'You can only add upto {limit} lines. Remove a line and then come back.\n**The Following is the role limits:**\nNormies: 5 lines\nLevel 10/Boosters: 10 lines\n100 Mil Donators/Double Boosters: 15 lines')
+				return await self.send_wait(ctx,f'You can only add upto {limit} lines. Remove a line and then come back.\nRole Limiting:\n{get(ctx.guild.roles, id=id1).name} :: {roles.perks[str(id1)]}\n{get(ctx.guild.roles, id=id2).name} :: {roles.perks[str(id2)]}')
 			if len(input) > 50:
 				return await self.send_wait(ctx,'You can only add upto 50 characters in one line.')
 			try:
@@ -99,9 +108,16 @@ class Shopping(Cog):
 				type = "buying"
 			else:
 				return await self.send_wait(ctx,'Please include `selling` or `buying` in your line, so i can detect which shop to add to.')
-			limit = self.rolescheck(ctx, user)
+			id1 = int(list(roles.perks.keys())[0])
+			id2 = int(list(roles.perks.keys())[1])
+			if get(ctx.guild.roles, id=id1) in ctx.author.roles:
+				limit = roles.perks[str(id1)]
+			elif get(ctx.guild.roles, id=id2) in ctx.author.roles:
+				limit = roles.perks[str(id2)]
+			else:
+				limit = 5
 			if len(users[str(user.id)][type]["lines"]) >= limit:
-				return await self.send_wait(ctx,f'You can only add upto {limit} lines. Remove a line and then come back.\n**The Following is the role limits:**\nNormies: 5 lines\nLevel 10/Boosters: 10 lines\n100 Mil Donators/Double Boosters: 15 lines')
+				return await self.send_wait(ctx,f'You can only add upto {limit} lines. Remove a line and then come back.\nRole Limiting:\n{get(ctx.guild.roles, id=id1).name} :: {roles.perks[str(id1)]}\n{get(ctx.guild.roles, id=id2).name} :: {roles.perks[str(id2)]}')
 			if not input:
 				return await self.send_wait(ctx,'What line do i add???')
 			if len(input) > 50:
