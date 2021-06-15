@@ -89,4 +89,4 @@ async def on_command_error(ctx, error):
 		return await ctx.send(error)
 
 
-bot.run('ODUwNjI0MDQ1MTkxMDA0MTYw.YLsbYA.LBigUAmdCXaVT_Fq7O9QL1meniE')
+bot.run('ODUwNjI0MDQ1MTkxMDA0MTYw.YLsbYA.IIVcOXMANSnkx9vZYgEO2q8QRn0')
